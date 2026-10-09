@@ -1,0 +1,27 @@
+@if (genre(); as genre) {
+  <div class="genre-page">
+    <div class="genre-card">
+      <h1>
+        {{ genre.name }}
+      </h1>
+
+      <div class="info-row">
+        <span class="label"> Parent Genre: </span>
+
+        <span class="value">
+          @if (parentGenre()) {
+            {{ parentGenre()?.name }}
+          } @else {
+            None
+          }
+        </span>
+      </div>
+
+      <div class="actions">
+        <a class="update-button" [routerLink]="['/edit-genre', genre.id]"> Update Genre </a>
+
+        <button class="delete-button" (click)="deleteGenre()">Delete Genre</button>
+      </div>
+    </div>
+  </div>
+}

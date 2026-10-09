@@ -1,23 +1,24 @@
 import { Routes } from '@angular/router';
-import { Games } from './pages/games/games';
+import { Games } from './pages/game/games/games';
 import { Home } from './pages/home/home';
-import { GameDetails } from './pages/game-details/game-details';
+import { GameDetails } from './pages/game/game-details/game-details';
 import { Basket } from './pages/basket/basket';
-import { Genres } from './pages/genres/genres';
+import { Genres } from './pages/genre/genres/genres';
 import { Orders } from './pages/orders/orders';
 import { Login } from './pages/login/login';
-import { Platforms } from './pages/platforms/platforms';
-import { Publishers } from './pages/publishers/publishers';
+import { Platforms } from './pages/platform/platforms/platforms';
+import { Publishers } from './pages/publisher/publishers/publishers';
 import { Users } from './pages/users/users';
 import { Roles } from './pages/roles/roles';
-import { GenreDetails } from './pages/genre-details/genre-details';
-import { PlatformDetails } from './pages/platform-details/platform-details';
-import { PublisherDetails } from './pages/publisher-details/publisher-details';
-import { AddGame } from './pages/add-game/add-game';
-import { EditGame } from './pages/edit-game/edit-game';
-import { AddGenre } from './pages/add-genre/add-genre';
-import { AddPlatform } from './pages/add-platform/add-platform';
-import { AddPublisher } from './pages/add-publisher/add-publisher';
+import { GenreDetails } from './pages/genre/genre-details/genre-details';
+import { PlatformDetails } from './pages/platform/platform-details/platform-details';
+import { PublisherDetails } from './pages/publisher/publisher-details/publisher-details';
+import { AddGame } from './pages/game/add-game/add-game';
+import { EditGame } from './pages/game/edit-game/edit-game';
+import { AddGenre } from './pages/genre/add-genre/add-genre';
+import { EditGenre } from './pages/genre/edit-genre/edit-genre';
+import { AddPlatform } from './pages/platform/add-platform/add-platform';
+import { AddPublisher } from './pages/publisher/add-publisher/add-publisher';
 
 export const routes: Routes = [
   {
@@ -48,6 +49,10 @@ export const routes: Routes = [
   {
     path: 'genres',
     component: Genres,
+  },
+  {
+    path: 'edit-genre/:id',
+    component: EditGenre,
   },
   {
     path: 'add-genre',
