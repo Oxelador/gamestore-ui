@@ -19,6 +19,8 @@ import { AddGenre } from './pages/genre/add-genre/add-genre';
 import { EditGenre } from './pages/genre/edit-genre/edit-genre';
 import { AddPlatform } from './pages/platform/add-platform/add-platform';
 import { AddPublisher } from './pages/publisher/add-publisher/add-publisher';
+import { EditPlatform } from './pages/platform/edit-platform/edit-platform';
+import { EditPublisher } from './pages/publisher/edit-publisher/edit-publisher';
 
 export const routes: Routes = [
   {
@@ -71,6 +73,10 @@ export const routes: Routes = [
     component: AddPlatform,
   },
   {
+    path: 'edit-platform/:id',
+    component: EditPlatform,
+  },
+  {
     path: 'platforms/:id',
     component: PlatformDetails,
   },
@@ -83,7 +89,11 @@ export const routes: Routes = [
     component: AddPublisher,
   },
   {
-    path: 'publishers/:id',
+    path: 'edit-publisher/:companyName',
+    component: EditPublisher,
+  },
+  {
+    path: 'publishers/:companyName',
     component: PublisherDetails,
   },
   {

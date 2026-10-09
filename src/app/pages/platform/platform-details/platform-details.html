@@ -1,6 +1,14 @@
-<h1>Platform Details</h1>
+@if (platform(); as platform) {
+  <div class="entity-page">
+    <div class="entity-card">
+      <h1>{{ platform.type }}</h1>
 
-<p>
-    Platform ID:
-    {{ platformId }}
-</p>
+      <div class="actions">
+        <a class="update-button" [routerLink]="['/edit-platform', platform.id]">
+          Update Platform
+        </a>
+        <button class="delete-button" (click)="deletePlatform()">Delete Platform</button>
+      </div>
+    </div>
+  </div>
+}

@@ -6,7 +6,7 @@
 
   <div class="entity-list">
     @for (publisher of publishers(); track publisher.id) {
-      <a class="entity-card" [routerLink]="['/publishers', publisher.id]">
+      <a class="entity-card" [routerLink]="['/publishers', publisher.companyName]">
         <span>
           {{ publisher.companyName }}
         </span>

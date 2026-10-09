@@ -1,6 +1,28 @@
-<h1>Publisher Details</h1>
+@if (publisher(); as publisher) {
+  <div class="entity-page">
+    <div class="entity-card">
+      <h1>{{ publisher.companyName }}</h1>
 
-<p>
-    Publisher ID:
-    {{ publisherId }}
-</p>
+      @if (publisher.homePage) {
+        <div class="info-row">
+          <span class="label">Home Page:</span>
+          <span class="value">{{ publisher.homePage }}</span>
+        </div>
+      }
+
+      @if (publisher.description) {
+        <div class="info-row">
+          <span class="label">Description:</span>
+          <span class="value">{{ publisher.description }}</span>
+        </div>
+      }
+
+      <div class="actions">
+        <a class="update-button" [routerLink]="['/edit-publisher', publisher.companyName]">
+          Update Publisher
+        </a>
+        <button class="delete-button" (click)="deletePublisher()">Delete Publisher</button>
+      </div>
+    </div>
+  </div>
+}

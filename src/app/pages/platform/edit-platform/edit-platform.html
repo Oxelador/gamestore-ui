@@ -1,0 +1,24 @@
+<div class="add-platform-page">
+  <div class="form-card">
+    <div class="page-header">
+      <h1>Edit Platform</h1>
+      <p>Update platform information.</p>
+    </div>
+
+    <section class="form-section">
+      <h2>Platform Information</h2>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Platform Name</label>
+          <input type="text" placeholder="Enter platform name" [(ngModel)]="editPlatform.type" />
+        </div>
+      </div>
+    </section>
+
+    <div class="actions">
+      <span class="hint">Update fields and save changes.</span>
+      <button class="save-btn" (click)="savePlatform()">Save Changes</button>
+    </div>
+  </div>
+</div>
