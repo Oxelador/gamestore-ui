@@ -1,0 +1,18 @@
+<div class="entity-page">
+  <a routerLink="/add-platform" routerLinkActive="active" class="add-platform-btn">
+    + Add Platform
+  </a>
+  <h1>Platforms</h1>
+
+  <div class="entity-list">
+    @for (platform of platforms(); track platform.id) {
+      <a class="entity-card" [routerLink]="['/platforms', platform.id]">
+        <span>
+          {{ platform.type }}
+        </span>
+
+        <span> → </span>
+      </a>
+    }
+  </div>
+</div>

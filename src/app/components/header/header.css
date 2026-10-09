@@ -1,0 +1,100 @@
+.header {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+
+  padding: 40px 70px;
+
+  z-index: 100;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.actions a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.actions a:hover {
+  color: #ff7f27;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.logo {
+  color: white;
+
+  font-size: 48px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.navigation {
+  display: flex;
+  gap: 40px;
+}
+
+.navigation a {
+  color: white;
+
+  text-decoration: none;
+
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.navigation a:hover {
+  color: #ff7f27;
+}
+
+.active {
+  color: #ff7f27 !important;
+}
+
+.user-name {
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: default;
+}
+
+.logout-btn {
+  border: 1px solid #ff7f27;
+
+  background: transparent;
+
+  color: #ff7f27;
+
+  padding: 6px 12px;
+
+  border-radius: 4px;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #ff7f27;
+
+  color: white;
+}

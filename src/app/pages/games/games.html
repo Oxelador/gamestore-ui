@@ -1,0 +1,187 @@
+<div class="games-page">
+  <div class="catalog-layout">
+    <section class="games-section">
+      <div class="games-header">
+        <div class="games-title-section">
+          <h2 class="games-title">Games</h2>
+
+          <a routerLink="/add-game" routerLinkActive="active" class="add-game-btn"> + Add Game </a>
+        </div>
+
+        <div class="search-box">
+          <span class="search-icon"> 🔍 </span>
+
+          <input
+            type="text"
+            placeholder="Search for Game"
+            [(ngModel)]="searchTerm"
+            (ngModelChange)="onSearchChange()"
+          />
+        </div>
+      </div>
+
+      <div class="games-grid">
+        @for (game of games(); track game.id) {
+          <app-game-card [game]="game"> </app-game-card>
+        }
+      </div>
+
+      <div class="pagination">
+        <button (click)="previousPage()" [disabled]="currentPage() === 1">&lt;&lt;</button>
+
+        <span> Page {{ currentPage() }} of {{ totalPages() }} </span>
+
+        <button (click)="nextPage()" [disabled]="currentPage() === totalPages()">&gt;&gt;</button>
+
+        <select [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange()">
+          @for (option of pageSizeOptions; track option) {
+            <option [value]="option">
+              {{ option }}
+            </option>
+          }
+        </select>
+      </div>
+    </section>
+
+    <aside class="filters-panel">
+      <h2>Refine Results</h2>
+
+      <button class="reset-filters" (click)="resetFilters()">Reset Filters</button>
+
+      <div class="filter-group">
+        <h4>Sorting</h4>
+
+        <select [(ngModel)]="sortOption" (ngModelChange)="onSortChange()">
+          <option value="Most popular">Most Popular</option>
+          <option value="Most commented">Most Commented</option>
+          <option value="Price ASC">Price ↑</option>
+          <option value="Price DESC">Price ↓</option>
+          <option value="New">Newest</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <h4>Price Range</h4>
+
+        <input type="number" min="0" placeholder="From" [(ngModel)]="minPrice" />
+
+        <input type="number" min="0" placeholder="To" [(ngModel)]="maxPrice" />
+
+        <div class="filter-buttons">
+          <button (click)="applyPriceFilter()">Apply</button>
+
+          <button (click)="clearPriceFilter()">Clear</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h4>Genres</h4>
+
+        @for (genre of genres(); track genre.id) {
+          <label>
+            <input
+              type="checkbox"
+              [checked]="selectedGenres().includes(genre.id)"
+              (change)="toggleGenre(genre.id)"
+            />
+
+            {{ genre.name }}
+          </label>
+        }
+      </div>
+
+      <div class="filter-group">
+        <h4>Publishers</h4>
+
+        @for (publisher of publishers(); track publisher.id) {
+          <label>
+            <input
+              type="checkbox"
+              [checked]="selectedPublishers().includes(publisher.id)"
+              (change)="togglePublisher(publisher.id)"
+            />
+
+            {{ publisher.companyName }}
+          </label>
+        }
+      </div>
+
+      <div class="filter-group">
+        <h4>Platforms</h4>
+
+        @for (platform of platforms(); track platform.id) {
+          <label>
+            <input
+              type="checkbox"
+              [checked]="selectedPlatforms().includes(platform.id)"
+              (change)="togglePlatform(platform.id)"
+            />
+
+            {{ platform.type }}
+          </label>
+        }
+      </div>
+
+      <div class="filter-group">
+        <h4>Date Publishing</h4>
+
+        <label>
+          <input
+            type="radio"
+            name="publishDate"
+            value="last week"
+            [(ngModel)]="publishDate"
+            (change)="onPublishDateChange()"
+          />
+          Last week
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="publishDate"
+            value="last month"
+            [(ngModel)]="publishDate"
+            (change)="onPublishDateChange()"
+          />
+          Last month
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="publishDate"
+            value="last year"
+            [(ngModel)]="publishDate"
+            (change)="onPublishDateChange()"
+          />
+          Last year
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="publishDate"
+            value="2 years"
+            [(ngModel)]="publishDate"
+            (change)="onPublishDateChange()"
+          />
+          2 years
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="publishDate"
+            value="3 years"
+            [(ngModel)]="publishDate"
+            (change)="onPublishDateChange()"
+          />
+          3 years
+        </label>
+      </div>
+
+      <button class="clear-date-btn" (click)="clearPublishDateFilter()">Clear</button>
+    </aside>
+  </div>
+</div>

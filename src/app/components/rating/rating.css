@@ -1,0 +1,21 @@
+.rating-stars {
+  display: flex;
+  gap: 4px;
+}
+
+.star {
+  font-size: 24px;
+  color: #d1d5db;
+}
+
+.star.filled {
+  color: #ff7a1a;
+}
+
+.star.clickable {
+  cursor: pointer;
+}
+
+.star.clickable:hover {
+  transform: scale(1.1);
+}

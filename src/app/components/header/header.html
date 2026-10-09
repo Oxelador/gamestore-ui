@@ -1,0 +1,26 @@
+<header class="header">
+  <a class="logo" routerLink="/home"> Logo</a>
+  <div class="header-right">
+    <nav class="navigation">
+      <a routerLink="/games" routerLinkActive="active"> Games</a>
+      <a routerLink="/genres" routerLinkActive="active"> Genres</a>
+      <a routerLink="/platforms" routerLinkActive="active"> Platforms</a>
+      <a routerLink="/publishers" routerLinkActive="active"> Publishers</a>
+      <a routerLink="/orders" routerLinkActive="active"> Orders</a>
+    </nav>
+
+    <div class="actions">
+      <a routerLink="/basket" routerLinkActive="active"> Basket </a>
+
+      @if (!currentUser()) {
+        <a routerLink="/login" routerLinkActive="active"> Login </a>
+      } @else {
+        <span class="user-name">
+          {{ currentUser()?.firstName }}
+        </span>
+
+        <button class="logout-btn" (click)="logout()">Logout</button>
+      }
+    </div>
+  </div>
+</header>

@@ -1,0 +1,36 @@
+.basket-page {
+  display: grid;
+
+  grid-template-columns: 1fr 320px;
+
+  gap: 40px;
+
+  padding: 60px;
+}
+
+.cart-item {
+  display: flex;
+
+  gap: 20px;
+
+  padding: 20px 0;
+
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-item img {
+  width: 120px;
+  height: 120px;
+
+  object-fit: cover;
+}
+
+.summary {
+  background: white;
+
+  padding: 24px;
+
+  height: fit-content;
+
+  border: 1px solid #ddd;
+}

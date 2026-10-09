@@ -1,0 +1,118 @@
+<div class="add-game-page">
+  <div class="form-card">
+    <div class="page-header">
+      <h1>Add New Game</h1>
+
+      <p>Create a new game in the catalog.</p>
+    </div>
+
+    <section class="form-section">
+      <h2>Game Information</h2>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Game Name</label>
+
+          <input type="text" placeholder="Enter game name" [(ngModel)]="newGame.name" />
+        </div>
+
+        <div class="form-group">
+          <label>Game Key</label>
+
+          <input
+            type="text"
+            placeholder="Generated automatically if empty"
+            [(ngModel)]="newGame.key"
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+
+        <textarea rows="6" placeholder="Enter game description" [(ngModel)]="newGame.description">
+        </textarea>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <h2>Pricing & Inventory</h2>
+
+      <div class="price-grid">
+        <div class="form-group">
+          <label>Price ($)</label>
+
+          <input type="number" min="0" step="0.01" [(ngModel)]="newGame.price" />
+        </div>
+
+        <div class="form-group">
+          <label>Discount (%)</label>
+
+          <input type="number" min="0" max="100" [(ngModel)]="newGame.discount" />
+        </div>
+
+        <div class="form-group">
+          <label>Units In Stock</label>
+
+          <input type="number" min="0" [(ngModel)]="newGame.unitInStock" />
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <h2>Genres</h2>
+
+      <div class="checkbox-grid">
+        @for (genre of genres(); track genre.id) {
+          <label class="checkbox-item">
+            <input
+              type="checkbox"
+              [checked]="selectedGenres().includes(genre.id)"
+              (change)="toggleGenre(genre.id)"
+            />
+
+            <span>{{ genre.name }}</span>
+          </label>
+        }
+      </div>
+    </section>
+
+    <section class="form-section">
+      <h2>Platforms</h2>
+
+      <div class="checkbox-grid">
+        @for (platform of platforms(); track platform.id) {
+          <label class="checkbox-item">
+            <input
+              type="checkbox"
+              [checked]="selectedPlatforms().includes(platform.id)"
+              (change)="togglePlatform(platform.id)"
+            />
+
+            <span>{{ platform.type }}</span>
+          </label>
+        }
+      </div>
+    </section>
+
+    <section class="form-section">
+      <h2>Publisher</h2>
+
+      <select [(ngModel)]="selectedPublisher">
+        <option value="">Select publisher</option>
+
+        @for (publisher of publishers(); track publisher.id) {
+          <option [value]="publisher.id">
+            {{ publisher.companyName }}
+          </option>
+        }
+      </select>
+    </section>
+
+    <div class="actions">
+      <span class="hint"> Fill required fields and choose categories before saving. </span>
+
+      <button class="save-btn" (click)="saveGame()">Save Game</button>
+    </div>
+  </div>
+</div>

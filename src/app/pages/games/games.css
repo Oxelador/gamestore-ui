@@ -1,0 +1,191 @@
+.games-page {
+  padding: 40px;
+}
+
+.catalog-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 60px;
+}
+
+.games-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.games-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 32px;
+}
+
+.games-title-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.games-title {
+  margin: 0;
+
+  font-size: 38px;
+  font-weight: 700;
+
+  color: #343a40;
+}
+
+.add-game-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 18px;
+
+  border-radius: 6px;
+
+  background: #ff7a1a;
+  color: white;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition: all 0.2s ease;
+}
+
+.add-game-btn:hover {
+  background: #e96a08;
+  transform: translateY(-1px);
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 280px;
+  height: 44px;
+
+  padding: 0 14px;
+
+  background: white;
+  border: 1px solid #d8d8d8;
+}
+
+.search-icon {
+  font-size: 16px;
+}
+
+.search-box input {
+  width: 100%;
+
+  border: none;
+  outline: none;
+
+  font-size: 14px;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 45px;
+  margin-left: 150px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  margin-top: 40px;
+}
+
+.pagination button,
+.pagination select {
+  height: 40px;
+}
+
+.filters-panel {
+  background: #f5f5f5;
+  padding: 24px;
+  height: fit-content;
+}
+
+.filters-panel h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.reset-filters {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.filter-group {
+  margin-bottom: 30px;
+}
+
+.filter-group h4 {
+  margin-bottom: 12px;
+
+  border-bottom: 1px solid #ddd;
+
+  padding-bottom: 8px;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.filter-group select,
+.filter-group input[type='number'] {
+  width: 100%;
+  height: 40px;
+
+  padding: 0 10px;
+
+  border: 1px solid #d8d8d8;
+  background: white;
+}
+
+.filter-group input[type='number'] {
+  margin-bottom: 10px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-buttons button {
+  flex: 1;
+}
+
+.clear-date-btn {
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .catalog-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .games-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .games-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+}

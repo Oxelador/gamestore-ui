@@ -1,0 +1,41 @@
+.login-page {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  min-height: 60vh;
+}
+
+.login-card {
+  width: 400px;
+
+  padding: 32px;
+
+  background: white;
+
+  border: 1px solid #ddd;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+.login-card input {
+  padding: 12px;
+
+  border: 1px solid #ddd;
+}
+
+.login-card button {
+  background: #ff7f27;
+
+  color: white;
+
+  border: none;
+
+  padding: 12px;
+
+  cursor: pointer;
+}

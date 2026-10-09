@@ -1,0 +1,12 @@
+<div class="rating-stars">
+  @for (star of stars; track star) {
+    <span
+      class="star"
+      [class.filled]="star <= value()"
+      [class.clickable]="editable()"
+      (click)="setRating(star)"
+    >
+      ★
+    </span>
+  }
+</div>

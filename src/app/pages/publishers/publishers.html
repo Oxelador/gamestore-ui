@@ -1,0 +1,18 @@
+<div class="entity-page">
+  <a routerLink="/add-publisher" routerLinkActive="active" class="add-publisher-btn">
+    + Add Publisher
+  </a>
+  <h1>Publishers</h1>
+
+  <div class="entity-list">
+    @for (publisher of publishers(); track publisher.id) {
+      <a class="entity-card" [routerLink]="['/publishers', publisher.id]">
+        <span>
+          {{ publisher.companyName }}
+        </span>
+
+        <span> → </span>
+      </a>
+    }
+  </div>
+</div>

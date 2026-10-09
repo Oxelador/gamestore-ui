@@ -1,0 +1,117 @@
+@if (game(); as game) {
+  <div class="game-details-page">
+    <div class="back-link">
+      <a routerLink="/games"> ← Back to Games </a>
+    </div>
+
+    <div class="game-details">
+      <div class="game-image-section">
+        <img class="main-image" [src]="game.imageUrl" [alt]="game.name" />
+      </div>
+
+      <div class="game-info">
+        <h1 class="game-title">
+          {{ game.name }}
+        </h1>
+
+        <div class="game-review-summary">
+          <div class="overall-rating">
+            <app-rating [value]="game.rating ?? 0"> </app-rating>
+
+            <span class="rating-text">
+              {{ game.rating }}
+            </span>
+
+            <span class="comments-count"> {{ comments().length }} Comments </span>
+          </div>
+
+          <div class="user-rating">
+            <span>Your Rating:</span>
+
+            <app-rating
+              [value]="game.userRating ?? 0"
+              [editable]="true"
+              (ratingChanged)="updateUserRating($event)"
+            >
+            </app-rating>
+          </div>
+        </div>
+
+        <div class="price-section">
+          @if (game.discount > 0) {
+            <span class="old-price"> ${{ game.price | number: '1.2-2' }} </span>
+          }
+
+          <span class="final-price"> ${{ getFinalPrice() | number: '1.2-2' }} </span>
+
+          @if (game.discount > 0) {
+            <span class="discount-badge"> -{{ game.discount }}% </span>
+          }
+        </div>
+
+        <div class="info-grid">
+          <span class="info-label"> Publisher </span>
+
+          <span class="info-value">
+            {{ publisher()?.companyName ?? 'Unknown' }}
+          </span>
+
+          <span class="info-label"> Available </span>
+
+          <span
+            class="stock"
+            [class.in-stock]="game.unitInStock > 10"
+            [class.low-stock]="game.unitInStock > 0 && game.unitInStock <= 10"
+            [class.out-stock]="game.unitInStock === 0"
+          >
+            {{ game.unitInStock }}
+          </span>
+
+          <span class="info-label"> Tax </span>
+
+          <span class="info-value"> ${{ getTax() | number: '1.2-2' }} </span>
+        </div>
+
+        <div>
+          <h3>Platforms</h3>
+
+          <div class="platform-list">
+            @for (platform of platforms(); track platform.id) {
+              <span class="platform-chip">
+                {{ platform.type }}
+              </span>
+            }
+          </div>
+        </div>
+
+        <div>
+          <h3>Genres</h3>
+
+          <div class="genre-list">
+            @for (genre of genres(); track genre.id) {
+              <span class="genre-chip">
+                {{ genre.name }}
+              </span>
+            }
+          </div>
+        </div>
+
+        <div class="game-actions">
+          <button class="cart-button">Add To Cart</button>
+
+          <a class="update-button" [routerLink]="['/edit-game', game.key]"> Update Game </a>
+
+          <button class="delete-button" (click)="deleteGame()">Delete Game</button>
+        </div>
+      </div>
+    </div>
+
+    <section class="game-description">
+      <h2>Description</h2>
+
+      <p>
+        {{ game.description }}
+      </p>
+    </section>
+  </div>
+}

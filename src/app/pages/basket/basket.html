@@ -1,0 +1,49 @@
+<div class="basket-page">
+  <div class="cart-section">
+    <h1>Cart</h1>
+
+    @for (item of cartItems; track item.game.id) {
+      <div class="cart-item">
+        <img [src]="item.game.imageUrl" [alt]="item.game.name" />
+
+        <div class="item-info">
+          <h3>{{ item.game.name }}</h3>
+
+          <p>{{ item.game.price | number: '1.2-2' }}$</p>
+
+          <div class="quantity-controls">
+            <button (click)="decrease(item)">-</button>
+
+            <span>
+              {{ item.quantity }}
+            </span>
+
+            <button (click)="increase(item)">+</button>
+          </div>
+          <button class="remove-btn" (click)="remove(item)">Remove</button>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="summary">
+    <h2>Order Summary</h2>
+
+    <p>
+      Subtotal:
+      {{ getSubtotal() | number: '1.2-2' }}$
+    </p>
+
+    <p>
+      Taxes:
+      {{ getTaxes() | number: '1.2-2' }}$
+    </p>
+
+    <p class="total">
+      Total:
+      {{ getTotal() | number: '1.2-2' }}$
+    </p>
+
+    <button class="checkout-btn">Checkout</button>
+  </div>
+</div>

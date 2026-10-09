@@ -1,0 +1,53 @@
+.entity-page {
+  padding: 60px;
+}
+
+.entity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.entity-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 20px;
+
+  background: white;
+
+  border: 1px solid #ddd;
+
+  text-decoration: none;
+  color: inherit;
+}
+
+.entity-card:hover {
+  border-color: #ff7f27;
+}
+
+.add-genre-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 18px;
+
+  border-radius: 6px;
+
+  background: #ff7a1a;
+  color: white;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition: all 0.2s ease;
+}
+
+.add-genre-btn:hover {
+  background: #e96a08;
+  transform: translateY(-1px);
+}

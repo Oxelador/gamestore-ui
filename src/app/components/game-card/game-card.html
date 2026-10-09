@@ -1,0 +1,13 @@
+<a 
+    class="game-card"
+    [routerLink]="['/game', game().key]">
+
+    <img
+        [src]="game().imageUrl"
+        [alt]="game().name">
+
+    <h3>{{ game().name }}</h3>
+
+    <p>${{ game().price }}</p>
+
+</a>

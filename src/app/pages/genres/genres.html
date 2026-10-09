@@ -1,0 +1,15 @@
+<div class="entity-page">
+  <a routerLink="/add-genre" routerLinkActive="active" class="add-genre-btn"> + Add Genre </a>
+  <h1>Genres</h1>
+  <div class="entity-list">
+    @for (genre of genres(); track genre.id) {
+      <a class="entity-card" [routerLink]="['/genres', genre.id]">
+        <span>
+          {{ genre.name }}
+        </span>
+
+        <span> → </span>
+      </a>
+    }
+  </div>
+</div>

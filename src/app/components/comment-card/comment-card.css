@@ -1,0 +1,45 @@
+.comment-card {
+  padding: 20px;
+
+  margin-bottom: 20px;
+
+  border: 1px solid #ddd;
+
+  background: white;
+}
+
+.comment-card h4 {
+  margin-bottom: 10px;
+}
+
+.comment-card p {
+  margin-bottom: 15px;
+
+  line-height: 1.5;
+}
+
+.comment-card button {
+  background: none;
+
+  border: none;
+
+  color: #ff7f27;
+
+  cursor: pointer;
+}
+
+.child-comments {
+  margin-top: 20px;
+  margin-left: 40px;
+
+  border-left: 2px solid #ddd;
+
+  padding-left: 20px;
+}
+
+.child-comments {
+  margin-top: 20px;
+  margin-left: 40px;
+  padding-left: 20px;
+  border-left: 2px solid #ddd;
+}

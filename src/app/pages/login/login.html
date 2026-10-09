@@ -1,0 +1,17 @@
+<div class="login-page">
+  <div class="login-card">
+    <h1>Login</h1>
+
+    <input type="email" placeholder="Email" [(ngModel)]="email" />
+
+    <input type="password" placeholder="Password" [(ngModel)]="password" />
+
+    @if (errorMessage) {
+      <p class="error">
+        {{ errorMessage }}
+      </p>
+    }
+
+    <button (click)="login()">Login</button>
+  </div>
+</div>
