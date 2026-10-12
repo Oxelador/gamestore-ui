@@ -5,20 +5,23 @@
 
   <app-rating [value]="comment().rating ?? 0"> </app-rating>
 
-  <button (click)="like()">👍 {{ comment().likes ?? 0 }}</button>
+  <div class="comment-actions">
+    <button (click)="like()">👍 {{ comment().likes ?? 0 }}</button>
+
+    <button (click)="reply()">Reply</button>
+
+    <button (click)="quote()">Quote</button>
+  </div>
 
   @if (comment().childComments.length > 0) {
     <div class="child-comments">
       @for (childComment of comment().childComments; track childComment.id) {
-        <div class="child-comment">
-          <h5>{{ childComment.name }}</h5>
-
-          <p>{{ childComment.body }}</p>
-
-          <app-rating [value]="childComment.rating"> </app-rating>
-
-          <button (click)="likeChildComment(childComment)">👍 {{ childComment.likes }}</button>
-        </div>
+        <app-comment-card
+          [comment]="childComment"
+          (replyClicked)="replyClicked.emit($event)"
+          (quoteClicked)="quoteClicked.emit($event)"
+        >
+        </app-comment-card>
       }
     </div>
   }

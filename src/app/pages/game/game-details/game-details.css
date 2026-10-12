@@ -298,3 +298,19 @@
 
   color: white;
 }
+
+.reply-banner {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 12px;
+
+  padding: 12px;
+
+  border-left: 4px solid #ff7a1a;
+
+  background: #fff4eb;
+}

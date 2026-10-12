@@ -6,7 +6,9 @@
       <a routerLink="/genres" routerLinkActive="active"> Genres</a>
       <a routerLink="/platforms" routerLinkActive="active"> Platforms</a>
       <a routerLink="/publishers" routerLinkActive="active"> Publishers</a>
-      <a routerLink="/orders" routerLinkActive="active"> Orders</a>
+      @if (currentUser()) {
+        <a routerLink="/orders" routerLinkActive="active"> Orders</a>
+      }
     </nav>
 
     <div class="actions">

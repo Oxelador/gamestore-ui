@@ -1,0 +1,54 @@
+.orders-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 160px 60px 60px;
+}
+
+.orders-page h1 {
+  margin: 0 0 32px;
+}
+
+.orders-list {
+  display: grid;
+  gap: 16px;
+}
+
+.order-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  padding: 20px 24px;
+}
+
+.order-card h2,
+.order-card p {
+  margin: 0;
+}
+
+.order-card p {
+  margin-top: 8px;
+  color: #666;
+}
+
+.update-order-button {
+  display: inline-block;
+  margin-top: 16px;
+  border-radius: 4px;
+  background: #ff7f27;
+  padding: 8px 12px;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.update-order-button:hover {
+  background: #e66d1d;
+}
+
+.status-message {
+  color: #666;
+}
+
+.error-message {
+  color: #b42318;
+}

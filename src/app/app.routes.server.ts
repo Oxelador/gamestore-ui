@@ -2,6 +2,10 @@ import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const serverRoutes: ServerRoute[] = [
   {
+    path: 'update-order/:id',
+    renderMode: RenderMode.Client,
+  },
+  {
     path: 'edit-game/:key',
     renderMode: RenderMode.Client,
   },

@@ -21,6 +21,7 @@ import { AddPlatform } from './pages/platform/add-platform/add-platform';
 import { AddPublisher } from './pages/publisher/add-publisher/add-publisher';
 import { EditPlatform } from './pages/platform/edit-platform/edit-platform';
 import { EditPublisher } from './pages/publisher/edit-publisher/edit-publisher';
+import { UpdateOrder } from './pages/orders/update-order/update-order';
 
 export const routes: Routes = [
   {
@@ -103,6 +104,10 @@ export const routes: Routes = [
   {
     path: 'orders',
     component: Orders,
+  },
+  {
+    path: 'update-order/:id',
+    component: UpdateOrder,
   },
   {
     path: 'users',

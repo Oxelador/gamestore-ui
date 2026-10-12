@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { CommentUiModel } from '../../models/comment-ui.model';
+import { Component, output } from '@angular/core';
+import { CommentUiModel } from '../../models/comment/comment-ui.model';
 import { input } from '@angular/core';
 import { Rating } from '../rating/rating';
 
 @Component({
-  imports: [Rating],
+  imports: [Rating, CommentCard],
   standalone: true,
   selector: 'app-comment-card',
   styleUrl: './comment-card.css',
@@ -12,12 +12,24 @@ import { Rating } from '../rating/rating';
 })
 export class CommentCard {
   comment = input.required<CommentUiModel>();
+  replyClicked = output<CommentUiModel>();
+  quoteClicked = output<CommentUiModel>();
 
   like(): void {
-    this.comment().likes = (this.comment().likes ?? 0) + 1;
+    const comment = this.comment();
+
+    comment.likes = (comment.likes ?? 0) + 1;
   }
 
   likeChildComment(childComment: CommentUiModel): void {
     childComment.likes++;
+  }
+
+  reply(): void {
+    this.replyClicked.emit(this.comment());
+  }
+
+  quote(): void {
+    this.quoteClicked.emit(this.comment());
   }
 }

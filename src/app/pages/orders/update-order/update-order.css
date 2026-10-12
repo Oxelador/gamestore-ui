@@ -1,0 +1,128 @@
+.update-order-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 160px 60px 60px;
+}
+
+.back-link {
+  color: #ff7f27;
+  text-decoration: none;
+}
+
+.order-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+  margin: 32px 0 24px;
+}
+
+.order-actions label {
+  width: 100%;
+  font-weight: 600;
+}
+
+.add-game-controls {
+  display: flex;
+  gap: 8px;
+}
+
+input,
+select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+button {
+  border: 0;
+  border-radius: 4px;
+  background: #ff7f27;
+  padding: 8px 14px;
+  color: white;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.ship-button {
+  background: #2e7d32;
+}
+
+.order-details {
+  display: grid;
+  gap: 12px;
+}
+
+.order-game {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 24px;
+  border-bottom: 1px solid #ddd;
+  padding: 12px 0;
+}
+
+.game-id {
+  flex: 1;
+  font-weight: 600;
+}
+
+.game-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.quantity-editor {
+  display: grid;
+  gap: 6px;
+  width: 168px;
+}
+
+.quantity-editor label {
+  color: #f44336;
+  font-size: 12px;
+}
+
+.quantity-editor input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.quantity-editor input.invalid {
+  border-color: #f44336;
+}
+
+.validation-message {
+  color: #f44336;
+  font-size: 11px;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.cancel-button {
+  background: #757575;
+}
+
+.delete-button {
+  background: #f44336;
+}
+
+.message {
+  margin: 16px 0;
+}
+
+.error-message {
+  color: #b42318;
+}
+
+.success-message {
+  color: #2e7d32;
+}

@@ -1,0 +1,94 @@
+<main class="update-order-page">
+  <a class="back-link" routerLink="/orders">Back to orders</a>
+  <h1>Order #{{ orderId }}</h1>
+
+  <section class="order-actions">
+    <label for="game-key">Game</label>
+    <div class="add-game-controls">
+      <select
+        id="game-key"
+        [(ngModel)]="selectedGameKey"
+        [disabled]="isSubmitting() || games().length === 0"
+      >
+        <option value="">Select a game</option>
+        @for (game of games(); track game.id) {
+          <option [value]="game.key">{{ game.name }}</option>
+        }
+      </select>
+      <button type="button" (click)="addGame()" [disabled]="isSubmitting() || !selectedGameKey">
+        Add
+      </button>
+    </div>
+
+    <button type="button" class="ship-button" (click)="shipOrder()" [disabled]="isSubmitting()">
+      Ship
+    </button>
+  </section>
+
+  @if (gameLoadError(); as gameLoadError) {
+    <p class="message error-message">{{ gameLoadError }}</p>
+  }
+  @if (errorMessage(); as errorMessage) {
+    <p class="message error-message">{{ errorMessage }}</p>
+  }
+  @if (successMessage(); as successMessage) {
+    <p class="message success-message">{{ successMessage }}</p>
+  }
+
+  @if (isLoading()) {
+    <p class="message">Loading order details...</p>
+  } @else if (orderDetails().length === 0) {
+    <p class="message">There are no games in this order.</p>
+  } @else {
+    <section class="order-details">
+      @for (orderGame of orderDetails(); track orderGame.id) {
+        <article class="order-game">
+          <span class="game-id">{{ getGameName(orderGame.productId) }}</span>
+          @if (editingOrderGameId === orderGame.id) {
+            <div class="quantity-editor">
+              <label for="quantity-{{ orderGame.id }}">Quantity</label>
+              <input
+                id="quantity-{{ orderGame.id }}"
+                type="number"
+                min="1"
+                [(ngModel)]="editingQuantity"
+                [disabled]="isSubmitting()"
+                [class.invalid]="!isValidQuantity()"
+              />
+              @if (!isValidQuantity()) {
+                <span class="validation-message">Please enter valid value</span>
+              }
+              <div class="editor-actions">
+                <button
+                  type="button"
+                  (click)="saveQuantity(orderGame)"
+                  [disabled]="isSubmitting() || !isValidQuantity()"
+                >
+                  Save
+                </button>
+                <button type="button" class="cancel-button" (click)="cancelUpdating()">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          } @else {
+            <div class="game-actions">
+              <span>Quantity: {{ orderGame.quantity }}</span>
+              <button type="button" (click)="startUpdating(orderGame)" [disabled]="isSubmitting()">
+                Update
+              </button>
+              <button
+                type="button"
+                class="delete-button"
+                (click)="deleteGame(orderGame)"
+                [disabled]="isSubmitting()"
+              >
+                Delete
+              </button>
+            </div>
+          }
+        </article>
+      }
+    </section>
+  }
+</main>

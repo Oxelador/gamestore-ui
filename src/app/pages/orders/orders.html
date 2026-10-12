@@ -1,1 +1,25 @@
-<p>orders works!</p>
+<main class="orders-page">
+  <h1>My Orders</h1>
+
+  @if (isLoading()) {
+    <p class="status-message">Loading your orders...</p>
+  } @else if (errorMessage(); as errorMessage) {
+    <p class="status-message error-message">{{ errorMessage }}</p>
+  } @else if (orders().length === 0) {
+    <p class="status-message">You do not have any paid orders yet.</p>
+  } @else {
+    <div class="orders-list">
+      @for (order of orders(); track order.id) {
+        <article class="order-card">
+          <h2>Order #{{ order.id }}</h2>
+          @if (order.date) {
+            <p>Paid on {{ order.date | date: 'mediumDate' }}</p>
+          }
+          <a class="update-order-button" [routerLink]="['/update-order', order.id]">
+            Update
+          </a>
+        </article>
+      }
+    </div>
+  }
+</main>

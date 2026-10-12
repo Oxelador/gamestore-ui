@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommentService } from '../../../services/comment';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Inject, PLATFORM_ID } from '@angular/core';
@@ -6,7 +7,8 @@ import { Game } from '../../../models/game/game.model';
 import { Rating } from '../../../components/rating/rating';
 import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { CommentUiModel } from '../../../models/comment-ui.model';
+import { CommentUiModel } from '../../../models/comment/comment-ui.model';
+import { Comment } from '../../../models/comment/comment.model';
 import { CommentCard } from '../../../components/comment-card/comment-card';
 import { GameService } from '../../../services/game';
 import { signal } from '@angular/core';
@@ -30,11 +32,15 @@ export class GameDetails {
   publisher = signal<Publisher | null>(null);
   comments = signal<CommentUiModel[]>([]);
   newComment = '';
+  replyToCommentId: string | null = null;
+  commentAction: 'Reply' | 'Quote' | null = null;
+  quotedComment = '';
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private gameService: GameService,
+    private commentService: CommentService,
     @Inject(PLATFORM_ID) private platformId: Object,
   ) {}
 
@@ -53,6 +59,7 @@ export class GameDetails {
     this.loadGenres(key);
     this.loadPlatforms(key);
     this.loadPublisher(key);
+    this.loadComments(key);
   }
 
   private loadGame(key: string): void {
@@ -110,6 +117,30 @@ export class GameDetails {
     });
   }
 
+  private loadComments(key: string): void {
+    this.commentService.getComments(key).subscribe({
+      next: (comments) => {
+        this.comments.set(comments.map((c) => this.toUiCommentModel(c)));
+      },
+
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+  private toUiCommentModel = (comment: Comment): CommentUiModel => {
+    return {
+      ...comment,
+
+      rating: 5,
+
+      likes: 0,
+
+      childComments: comment.childComments.map((child) => this.toUiCommentModel(child)),
+    };
+  };
+
   getFinalPrice(): number {
     return (
       (this.game()?.price ?? 0) - ((this.game()?.price ?? 0) * (this.game()?.discount ?? 0)) / 100
@@ -121,23 +152,36 @@ export class GameDetails {
   }
 
   addComment(): void {
+    const key = this.game()?.key;
+
+    if (!key) {
+      return;
+    }
+
     if (!this.newComment.trim()) {
       return;
     }
 
-    this.comments.update((comments) => [
-      ...comments,
-      {
-        id: crypto.randomUUID(),
-        name: 'Current User',
-        body: this.newComment,
-        childComments: [],
-        rating: 5,
-        likes: 0,
-      },
-    ]);
+    this.commentService
+      .addComment(key, {
+        comment: {
+          body: this.newComment,
+        },
+        parentId: this.replyToCommentId ?? undefined,
+        action: this.commentAction ?? undefined,
+      })
+      .subscribe({
+        next: () => {
+          this.replyToCommentId = null;
+          this.commentAction = null;
+          this.newComment = '';
+          this.loadComments(key);
+        },
 
-    this.newComment = '';
+        error: (error) => {
+          console.error(error);
+        },
+      });
   }
 
   updateUserRating(rating: number): void {
@@ -151,5 +195,33 @@ export class GameDetails {
         userRating: rating,
       };
     });
+  }
+
+  onReply(comment: CommentUiModel): void {
+    this.replyToCommentId = comment.id;
+
+    this.commentAction = 'Reply';
+
+    this.quotedComment = '';
+  }
+
+  onQuote(comment: CommentUiModel): void {
+    this.replyToCommentId = comment.id;
+
+    this.commentAction = 'Quote';
+
+    this.quotedComment = `> ${comment.body}\n\n`;
+
+    this.newComment = this.quotedComment;
+  }
+
+  cancelReply(): void {
+    this.replyToCommentId = null;
+
+    this.commentAction = null;
+
+    this.quotedComment = '';
+
+    this.newComment = '';
   }
 }

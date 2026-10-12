@@ -113,5 +113,36 @@
         {{ game.description }}
       </p>
     </section>
+
+    <section class="comments-section">
+      <div class="comments-header">
+        <h2>Comments</h2>
+      </div>
+
+      <div class="comment-form">
+        @if (replyToCommentId) {
+          <div class="reply-banner">
+            Reply mode:
+            {{ commentAction }}
+
+            <button (click)="cancelReply()">Cancel</button>
+          </div>
+        }
+        <textarea [(ngModel)]="newComment" placeholder="Write comment..."> </textarea>
+
+        <button (click)="addComment()">Add Comment</button>
+      </div>
+
+      <div class="comment-list">
+        @for (comment of comments(); track comment.id) {
+          <app-comment-card
+            [comment]="comment"
+            (replyClicked)="onReply($event)"
+            (quoteClicked)="onQuote($event)"
+          >
+          </app-comment-card>
+        }
+      </div>
+    </section>
   </div>
 }

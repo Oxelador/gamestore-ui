@@ -43,3 +43,22 @@
   padding-left: 20px;
   border-left: 2px solid #ddd;
 }
+
+.comment-actions {
+  display: flex;
+  gap: 12px;
+
+  margin-top: 8px;
+}
+
+.comment-actions button {
+  border: none;
+
+  background: transparent;
+
+  color: #ff7a1a;
+
+  cursor: pointer;
+
+  font-weight: 600;
+}
