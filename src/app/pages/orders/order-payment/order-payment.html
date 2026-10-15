@@ -1,0 +1,23 @@
+<div class="payment-page">
+  <h1>Payment Methods</h1>
+
+  <div class="total">Total : {{ total | number: '1.2-2' }}$</div>
+
+  @for (method of paymentMethods; track method.title) {
+    <div class="payment-card">
+      <img [src]="method.imageUrl" [alt]="method.title" />
+
+      <div class="payment-info">
+        <h3>
+          {{ method.title }}
+        </h3>
+
+        <p>
+          {{ method.description }}
+        </p>
+      </div>
+
+      <button class="pay-btn">Pay</button>
+    </div>
+  }
+</div>

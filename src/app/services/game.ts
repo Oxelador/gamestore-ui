@@ -92,6 +92,10 @@ export class GameService {
     return this.http.get<Game>(`${this.apiUrl}/games/${key}`);
   }
 
+  getGameById(id: string): Observable<Game> {
+    return this.http.get<Game>(`${this.apiUrl}/games/find/${id}`);
+  }
+
   getGameGenres(key: string): Observable<Genre[]> {
     return this.http.get<Genre[]>(`${this.apiUrl}/games/${key}/genres`);
   }

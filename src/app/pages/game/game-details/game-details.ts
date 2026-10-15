@@ -17,6 +17,7 @@ import { Platform } from '../../../models/platform/platform.model';
 import { Genre } from '../../../models/genre/genre.model';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
+import { OrderService } from '../../../services/order';
 
 @Component({
   imports: [Rating, DecimalPipe, RouterLink, CommentCard, FormsModule],
@@ -31,6 +32,9 @@ export class GameDetails {
   platforms = signal<Platform[]>([]);
   publisher = signal<Publisher | null>(null);
   comments = signal<CommentUiModel[]>([]);
+  isAddingToCart = signal(false);
+  cartMessage = signal<string | null>(null);
+  cartMessageIsError = signal(false);
   newComment = '';
   replyToCommentId: string | null = null;
   commentAction: 'Reply' | 'Quote' | null = null;
@@ -41,6 +45,7 @@ export class GameDetails {
     private router: Router,
     private gameService: GameService,
     private commentService: CommentService,
+    private orderService: OrderService,
     @Inject(PLATFORM_ID) private platformId: Object,
   ) {}
 
@@ -136,6 +141,7 @@ export class GameDetails {
       rating: 5,
 
       likes: 0,
+      isLiked: false,
 
       childComments: comment.childComments.map((child) => this.toUiCommentModel(child)),
     };
@@ -149,6 +155,33 @@ export class GameDetails {
 
   getTax(): number {
     return this.getFinalPrice() * 0.2;
+  }
+
+  addToCart(): void {
+    const game = this.game();
+
+    if (!game || this.isAddingToCart()) {
+      return;
+    }
+
+    this.isAddingToCart.set(true);
+    this.cartMessage.set(null);
+    this.cartMessageIsError.set(false);
+
+    this.orderService.addGameToCart(game.key).subscribe({
+      next: () => {
+        this.cartMessage.set(`${game.name} was added to your cart.`);
+      },
+      error: (error) => {
+        console.error('Error adding game to cart:', error);
+        this.cartMessage.set('Unable to add this game to your cart. Please try again.');
+        this.cartMessageIsError.set(true);
+        this.isAddingToCart.set(false);
+      },
+      complete: () => {
+        this.isAddingToCart.set(false);
+      },
+    });
   }
 
   addComment(): void {

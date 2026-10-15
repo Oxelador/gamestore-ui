@@ -4,7 +4,7 @@ import { Home } from './pages/home/home';
 import { GameDetails } from './pages/game/game-details/game-details';
 import { Basket } from './pages/basket/basket';
 import { Genres } from './pages/genre/genres/genres';
-import { Orders } from './pages/orders/orders';
+import { Orders } from './pages/orders/orders/orders';
 import { Login } from './pages/login/login';
 import { Platforms } from './pages/platform/platforms/platforms';
 import { Publishers } from './pages/publisher/publishers/publishers';
@@ -22,6 +22,7 @@ import { AddPublisher } from './pages/publisher/add-publisher/add-publisher';
 import { EditPlatform } from './pages/platform/edit-platform/edit-platform';
 import { EditPublisher } from './pages/publisher/edit-publisher/edit-publisher';
 import { UpdateOrder } from './pages/orders/update-order/update-order';
+import { Order } from './pages/orders/order/order';
 
 export const routes: Routes = [
   {
@@ -108,6 +109,10 @@ export const routes: Routes = [
   {
     path: 'update-order/:id',
     component: UpdateOrder,
+  },
+  {
+    path: 'order',
+    component: Order,
   },
   {
     path: 'users',

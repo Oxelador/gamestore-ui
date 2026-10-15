@@ -1,8 +1,8 @@
 import { DatePipe, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Order } from '../../models/order/order.model';
-import { OrderService } from '../../services/order';
+import { Order } from '../../../models/order/order.model';
+import { OrderService } from '../../../services/order';
 
 @Component({
   standalone: true,

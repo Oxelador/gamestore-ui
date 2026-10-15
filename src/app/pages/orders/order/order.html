@@ -1,0 +1,46 @@
+<div class="payment-page">
+  <h1>GameStore</h1>
+
+  <div class="total">
+    Total :
+    {{ total | number: '1.2-2' }}$
+  </div>
+
+  @for (method of paymentMethods(); track method.title) {
+    <div class="payment-card">
+      <img [src]="method.imageUrl" [alt]="method.title" />
+
+      <div class="payment-info">
+        <h3>
+          {{ method.title }}
+        </h3>
+
+        <p>
+          {{ method.description }}
+        </p>
+      </div>
+
+      @if (showVisaForm && method.title === 'Visa') {
+        <div class="visa-form">
+          <h2>Visa Payment</h2>
+
+          <input placeholder="Card Holder" [(ngModel)]="visaForm.holder" />
+
+          <input placeholder="Card Number" [(ngModel)]="visaForm.cardNumber" />
+
+          <div class="visa-row">
+            <input type="number" placeholder="Month" [(ngModel)]="visaForm.monthExpire" />
+
+            <input type="number" placeholder="Year" [(ngModel)]="visaForm.yearExpire" />
+
+            <input type="number" placeholder="CVV" [(ngModel)]="visaForm.cvv2" />
+          </div>
+
+          <button class="pay-btn" (click)="processPayment()">Confirm Payment</button>
+        </div>
+      }
+
+      <button class="pay-btn" (click)="selectPaymentMethod(method)">Pay</button>
+    </div>
+  }
+</div>

@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
-import { CartItem } from '../../models/cart-item.model';
+import { OrderService } from '../../services/order';
 import { DecimalPipe } from '@angular/common';
+import { Router } from '@angular/router';
+import { Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
+import { GameService } from '../../services/game';
+import { CartItem } from '../../models/order/cart-item.model';
+import { signal } from '@angular/core';
 
 @Component({
   imports: [DecimalPipe],
@@ -8,52 +16,113 @@ import { DecimalPipe } from '@angular/common';
   styleUrl: './basket.css',
   templateUrl: './basket.html',
 })
-export class Basket {
-  cartItems: CartItem[] = [
-    {
-      game: {
-        id: '1',
-        name: 'Cyberpunk 2077',
-        key: 'cyberpunk-2077',
-        price: 59.99,
-        discount: 10,
-        unitInStock: 5,
-        rating: 4.8,
-        imageUrl: '/images/cyberpunk.jpg',
+export class Basket implements OnInit {
+  cartItems = signal<CartItem[]>([]);
+
+  constructor(
+    private router: Router,
+    private orderService: OrderService,
+    private gameService: GameService,
+    @Inject(PLATFORM_ID)
+    private platformId: object,
+  ) {}
+
+  ngOnInit(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    this.loadCart();
+  }
+
+  private loadCart(): void {
+    this.orderService.getCart().subscribe({
+      next: (orderItems) => {
+        if (!orderItems.length) {
+          this.cartItems.set([]);
+          return;
+        }
+
+        const gameRequests = orderItems.map((item) => this.gameService.getGameById(item.productId));
+
+        forkJoin(gameRequests).subscribe({
+          next: (games) => {
+            this.cartItems.set(
+              orderItems.map((orderItem, index) => ({
+                game: {
+                  ...games[index],
+
+                  imageUrl: '/images/default-game.jpeg',
+
+                  rating: 4.5,
+                },
+
+                quantity: orderItem.quantity,
+              })),
+            );
+          },
+
+          error: (error) => {
+            console.error('Games loading error:', error);
+          },
+        });
       },
-      quantity: 1,
-    },
-    {
-      game: {
-        id: '2',
-        name: 'Minecraft',
-        key: 'minecraft',
-        price: 29.99,
-        discount: 5,
-        unitInStock: 10,
-        rating: 4.5,
-        imageUrl: '/images/minecraft.jpg',
+
+      error: (error) => {
+        console.error('Cart loading error:', error);
       },
-      quantity: 2,
-    },
-  ];
+    });
+  }
+
+  makeOrder(): void {
+    this.router.navigate(['/order'], {
+      state: {
+        total: this.getTotal(),
+      },
+    });
+  }
 
   increase(item: CartItem): void {
-    item.quantity++;
+    this.orderService
+      .updateOrderGameQuantity(item.game.id, { count: item.quantity + 1 })
+      .subscribe({
+        next: () => {
+          item.quantity++;
+        },
+        error: (error) => {
+          console.error('Error increasing item quantity:', error);
+        },
+      });
   }
 
   decrease(item: CartItem): void {
     if (item.quantity > 1) {
-      item.quantity--;
+      this.orderService
+        .updateOrderGameQuantity(item.game.id, { count: item.quantity - 1 })
+        .subscribe({
+          next: () => {
+            item.quantity--;
+          },
+          error: (error) => {
+            console.error('Error decreasing item quantity:', error);
+          },
+        });
     }
   }
 
   remove(item: CartItem): void {
-    this.cartItems = this.cartItems.filter((current) => current.game.id !== item.game.id);
+    this.orderService.removeGameFromCart(item.game.key).subscribe({
+      next: () => {
+        this.cartItems.set(this.cartItems().filter((current) => current.game.id !== item.game.id));
+      },
+      error: (error) => {
+        console.error('Error removing item from cart:', error);
+      },
+    });
   }
 
   getSubtotal(): number {
-    return this.cartItems.reduce((sum, item) => sum + item.game.price * item.quantity, 0);
+    return this.cartItems().reduce((sum, item) => sum + item.game.price * item.quantity, 0);
   }
 
   getTaxes(): number {

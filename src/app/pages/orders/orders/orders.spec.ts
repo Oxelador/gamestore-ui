@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PLATFORM_ID } from '@angular/core';
 import { of } from 'rxjs';
-import { OrderService } from '../../services/order';
-import { Orders } from './orders';
+import { OrderService } from '../../../services/order';
+import { Orders } from '../orders';
 
 describe('Orders', () => {
   let component: Orders;

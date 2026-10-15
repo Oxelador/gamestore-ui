@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { signal } from '@angular/core';
 import { AuthService } from '../../services/auth';
 
 @Component({
@@ -11,14 +10,10 @@ import { AuthService } from '../../services/auth';
   styleUrl: './header.css',
 })
 export class Header {
-  currentUser = signal<any>(null);
+  currentUser: any;
 
   constructor(private authService: AuthService) {
     this.currentUser = this.authService.currentUser;
-  }
-
-  ngOnInit(): void {
-    this.currentUser.set(this.authService.getCurrentUser());
   }
 
   logout(): void {

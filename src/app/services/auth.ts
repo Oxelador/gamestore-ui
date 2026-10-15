@@ -12,13 +12,21 @@ import { isPlatformBrowser } from '@angular/common';
 export class AuthService {
   private readonly apiUrl = environment.apiUrl;
 
-  currentUser = signal<any>(this.loadUser());
+  currentUser = signal<any>(null);
 
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID)
     private platformId: object,
-  ) {}
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      const user = localStorage.getItem('currentUser');
+
+      if (user) {
+        this.currentUser.set(JSON.parse(user));
+      }
+    }
+  }
 
   login(login: string, password: string) {
     return this.http.post<LoginResponse>(`${this.apiUrl}/users/login`, {
@@ -41,7 +49,9 @@ export class AuthService {
   }
 
   storeUser(user: any): void {
-    localStorage.setItem('currentUser', JSON.stringify(user));
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('currentUser', JSON.stringify(user));
+    }
 
     this.currentUser.set(user);
   }
@@ -51,7 +61,9 @@ export class AuthService {
   }
 
   storeToken(token: string): void {
-    localStorage.setItem('jwtToken', token);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('jwtToken', token);
+    }
   }
 
   getToken(): string | null {

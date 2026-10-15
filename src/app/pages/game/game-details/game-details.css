@@ -160,6 +160,20 @@
   background: #e76608;
 }
 
+.cart-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.cart-message {
+  margin: 0;
+  color: #2ecc71;
+}
+
+.cart-message.error-message {
+  color: #e74c3c;
+}
+
 .game-description {
   margin-top: 2rem;
 }

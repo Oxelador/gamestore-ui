@@ -44,8 +44,11 @@ export class OrderService {
     return this.http.get<PaymentMethodsResponse>(`${this.apiUrl}/orders/payment-methods`);
   }
 
-  processPayment(request: PaymentRequest): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/orders/payment`, request);
+  processPayment(request: PaymentRequest) {
+    return this.http.post(`${this.apiUrl}/orders/payment`, request, {
+      responseType: 'blob',
+      observe: 'response',
+    });
   }
 
   getOrderHistory(): Observable<OrderHistory[]> {

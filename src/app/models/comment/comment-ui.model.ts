@@ -7,4 +7,5 @@ export interface CommentUiModel
 
     rating: number;
     likes: number;
+    isLiked: boolean;
 }

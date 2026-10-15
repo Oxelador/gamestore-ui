@@ -97,12 +97,19 @@
         </div>
 
         <div class="game-actions">
-          <button class="cart-button">Add To Cart</button>
+          <button class="cart-button" (click)="addToCart()" [disabled]="isAddingToCart()">
+            {{ isAddingToCart() ? 'Adding...' : 'Add To Cart' }}
+          </button>
 
           <a class="update-button" [routerLink]="['/edit-game', game.key]"> Update Game </a>
 
           <button class="delete-button" (click)="deleteGame()">Delete Game</button>
         </div>
+        @if (cartMessage(); as message) {
+          <p class="cart-message" [class.error-message]="cartMessageIsError()" role="status">
+            {{ message }}
+          </p>
+        }
       </div>
     </div>
 

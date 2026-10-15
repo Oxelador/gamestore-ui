@@ -15,14 +15,11 @@ export class CommentCard {
   replyClicked = output<CommentUiModel>();
   quoteClicked = output<CommentUiModel>();
 
-  like(): void {
+  toggleLike(): void {
     const comment = this.comment();
 
-    comment.likes = (comment.likes ?? 0) + 1;
-  }
-
-  likeChildComment(childComment: CommentUiModel): void {
-    childComment.likes++;
+    comment.isLiked = !comment.isLiked;
+    comment.likes = Math.max(0, comment.likes + (comment.isLiked ? 1 : -1));
   }
 
   reply(): void {
